@@ -37,7 +37,7 @@ namespace AdventOfCode23
 
         private static int ToDigit(char c) => c - '0';
 
-        // Note - "eightwo" resolves as "8wo", so chained Replace() doesn't work
+        // Note - "eightwo" resolves as "82", so chained Replace() doesn't work
         private static Dictionary<string, string> wordsAndNumbers = new Dictionary<string, string>
         {
             { "one", "1" },
@@ -56,6 +56,7 @@ namespace AdventOfCode23
 
             foreach (var word in wordsAndNumbers.Keys)
             {
+                // This relies on no number name being a substring of another :)
                 if (text.StartsWith(word))
                     return wordsAndNumbers[word] + ReplaceWordsWithDigits(text.Substring(1));
             }
