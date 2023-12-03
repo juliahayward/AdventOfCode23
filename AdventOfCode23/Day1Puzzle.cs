@@ -33,10 +33,6 @@ namespace AdventOfCode23
             Console.WriteLine(answer);
         }
 
-        private static bool IsDigit(char c) => c >= '0' && c <= '9';
-
-        private static int ToDigit(char c) => c - '0';
-
         // Note - "eightwo" resolves as "82", so chained Replace() doesn't work
         private static Dictionary<string, string> wordsAndNumbers = new Dictionary<string, string>
         {

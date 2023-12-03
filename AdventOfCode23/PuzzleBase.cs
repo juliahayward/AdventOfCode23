@@ -23,5 +23,17 @@ namespace AdventOfCode23
             }
             return lines;
         }
+
+        protected static bool IsDigit(char c) => c >= '0' && c <= '9';
+
+        protected static int ToDigit(char c) => c - '0';
+
+        // Does out-of-bounds checking
+        protected static char? SafeCharAt(List<string> lines, int x, int y)
+        {
+            if (y < 0 || y >= lines.Count) return null;
+            if (x < 0 || x >= lines[y].Length) return null;
+            return lines[y][x];
+        }
     }
 }
