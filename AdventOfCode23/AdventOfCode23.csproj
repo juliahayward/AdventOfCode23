@@ -76,6 +76,7 @@
     <Compile Include="Day1Puzzle.cs" />
     <Compile Include="Day2Puzzle.cs" />
     <Compile Include="Day3Puzzle.cs" />
+    <Compile Include="Day4Puzzle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PuzzleBase.cs" />
