@@ -2,14 +2,6 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using static System.Net.Mime.MediaTypeNames;
-using System.Text;
-
 namespace AdventOfCode23
 {
     internal class Program
@@ -18,8 +10,8 @@ namespace AdventOfCode23
         {
             var start = DateTime.UtcNow;
 
-            //Day5Puzzle.TestRanges();
-            Day5Puzzle.DoPart2(false);
+            
+            Day6Puzzle.DoPart2(false);
             
             Console.WriteLine("Elapsed time: " + (DateTime.UtcNow - start).TotalSeconds);
 
