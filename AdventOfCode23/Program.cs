@@ -11,7 +11,7 @@ namespace AdventOfCode23
             var start = DateTime.UtcNow;
 
             
-            Day6Puzzle.DoPart2(false);
+            Day7Puzzle.Do(false, true);
             
             Console.WriteLine("Elapsed time: " + (DateTime.UtcNow - start).TotalSeconds);
 
