@@ -35,5 +35,33 @@ namespace AdventOfCode23
             if (x < 0 || x >= lines[y].Length) return null;
             return lines[y][x];
         }
+
+        // GCF and LCM
+        protected static long GCF(long a, long b)
+        {
+            while (b != 0)
+            {
+                long temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+
+        protected static long LCM(long a, long b)
+        {
+            return (a / GCF(a, b)) * b;
+        }
+
+        protected static long LCM(IList<long> values)
+        {
+            while (values.Count() > 1)
+            {
+                var newValue = LCM(values.First(), values.ElementAt(1));
+                values = values.Skip(2).Append(newValue).ToList();
+            }
+            return values.First();
+        }
+
     }
 }

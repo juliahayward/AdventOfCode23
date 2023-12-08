@@ -80,6 +80,7 @@
     <Compile Include="Day5Puzzle.cs" />
     <Compile Include="Day6Puzzle.cs" />
     <Compile Include="Day7Puzzle.cs" />
+    <Compile Include="Day8Puzzle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PuzzleBase.cs" />
