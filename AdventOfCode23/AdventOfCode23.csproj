@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Day10Puzzle.cs" />
     <Compile Include="Day1Puzzle.cs" />
     <Compile Include="Day2Puzzle.cs" />
     <Compile Include="Day3Puzzle.cs" />
