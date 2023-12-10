@@ -24,6 +24,29 @@ namespace AdventOfCode23
             return lines;
         }
 
+        public class Grid
+        {
+            public Grid(List<string> lines)
+            {
+                Width = lines[0].Length;
+                Height = lines.Count;
+                Cells = new char[Width, Height];
+                for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
+                    Cells[x, y] = lines[x][y];
+            }
+
+            public char[,] Cells { get; }
+            public int Width { get; }
+            public int Height { get; }
+        }
+
+        protected static Grid ReadLinesAsGrid(int day, bool example)
+        {
+            var lines = ReadLines(10, example);
+            return new Grid(lines);
+        }
+
         protected static bool IsDigit(char c) => c >= '0' && c <= '9';
 
         protected static int ToDigit(char c) => c - '0';

@@ -1,34 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode23
 {
     internal class Day10Puzzle : PuzzleBase
     {
-        private static char[,] _chars;
+        private static Grid _grid;
         private static List<(int, int)> _loopCells = new List<(int, int)>();
 
         // note after the event - yes, (x, y) is back to front :)
-        private static char CharAt((int, int)pos) => _chars[pos.Item1, pos.Item2];
+        private static char CharAt((int, int)pos) => _grid.Cells[pos.Item1, pos.Item2];
 
-        private static int _width;
-        private static int _height;
         internal static void Do(bool example)
         {
-            var lines = ReadLines(10, example).ToArray();
-            _width = lines[0].Length;
-            _height = lines.Length;
-            _chars = new char[_width, _height];
-            for (int x = 0; x < _width; x++)
-            for (int y = 0; y < _height; y++)
-                _chars[x,y] = lines[x][y];
-
+            _grid = ReadLinesAsGrid(10, example);
 
             var start = GetStart();
             // We don't know if our start direction is valid - we'll head off
@@ -51,39 +37,39 @@ namespace AdventOfCode23
                     Console.WriteLine("Bad initial direction: " + direction);
                 }
             }
-            // Blank off all non-loop cells
-            for (int x = 0; x < _width; x++)
-            for (int y = 0; y < _height; y++)
+            // Blank off all non-loop cells so we don't trip over them in part 2
+            for (int x = 0; x < _grid.Width; x++)
+            for (int y = 0; y < _grid.Height; y++)
             {
                 if (!_loopCells.Contains((x, y)))
-                    _chars[x, y] = '.';
+                    _grid.Cells[x, y] = '.';
             }
             // Substitute the S
             switch (successfulInitialDirections)
             {
                 case "NS":
-                    _chars[start.Item1, start.Item2] = '|';
+                    _grid.Cells[start.Item1, start.Item2] = '|';
                     break;
                 case "NE":
-                    _chars[start.Item1, start.Item2] = 'L';
+                    _grid.Cells[start.Item1, start.Item2] = 'L';
                     break;
                 case "NW":
-                    _chars[start.Item1, start.Item2] = 'J';
+                    _grid.Cells[start.Item1, start.Item2] = 'J';
                     break;
                 case "SE":
-                    _chars[start.Item1, start.Item2] = 'F';
+                    _grid.Cells[start.Item1, start.Item2] = 'F';
                     break;
                 case "SW":
-                    _chars[start.Item1, start.Item2] = '7';
+                    _grid.Cells[start.Item1, start.Item2] = '7';
                     break;
                 case "EW":
-                    _chars[start.Item1, start.Item2] = '-';
+                    _grid.Cells[start.Item1, start.Item2] = '-';
                     break;
             }
 
 
             // Now start counting cells!
-            Console.WriteLine("Total cells: " + (_width * _height));
+            Console.WriteLine("Total cells: " + (_grid.Width * _grid.Height));
             Console.WriteLine("Loop cells: " + _loopCells.Count);
             try
             {
@@ -99,11 +85,11 @@ namespace AdventOfCode23
 
         static void WriteCells()
         {
-            for (int x = 0; x < _width; x++)
+            for (int x = 0; x < _grid.Width; x++)
             {
-                for (int y = 0; y < _height; y++)
+                for (int y = 0; y < _grid.Height; y++)
                 {
-                    Console.Write(_chars[x, y]);
+                    Console.Write(_grid.Cells[x, y]);
                 }
                 Console.WriteLine();
             }
@@ -111,8 +97,8 @@ namespace AdventOfCode23
 
         static (int, int) GetStart()
         {
-            for (int x = 0; x < _width; x++)
-            for (int y = 0; y < _height; y++)
+            for (int x = 0; x < _grid.Width; x++)
+            for (int y = 0; y < _grid.Height; y++)
                 if (CharAt((x, y)) == 'S')
                     return (x, y);
             throw new InvalidDataException("No S");
@@ -236,8 +222,8 @@ namespace AdventOfCode23
         static (int, int) CountInsAndOuts()
         {
             int ins = 0, outs = 0;
-            for (int x = 0; x < _width; x++)
-            for (int y = 0; y < _height; y++)
+            for (int x = 0; x < _grid.Width; x++)
+            for (int y = 0; y < _grid.Height; y++)
             {
                 if (CharAt((x, y)) != '.')
                     continue;
@@ -249,12 +235,12 @@ namespace AdventOfCode23
                 if (IsInLoop(x, y))
                 {
                     ins++;
-                    _chars[x, y] = 'I';
+                    _grid.Cells[x, y] = 'I';
                 }
                 else
                 {
                     outs++;
-                    _chars[x, y] = 'O';
+                    _grid.Cells[x, y] = 'O';
                 }
             }
 
