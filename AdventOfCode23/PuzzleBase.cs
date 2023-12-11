@@ -33,7 +33,7 @@ namespace AdventOfCode23
                 Cells = new char[Width, Height];
                 for (int x = 0; x < Width; x++)
                 for (int y = 0; y < Height; y++)
-                    Cells[x, y] = lines[x][y];
+                    Cells[x, y] = lines[y][x];
             }
 
             public char[,] Cells { get; }
@@ -43,7 +43,7 @@ namespace AdventOfCode23
 
         protected static Grid ReadLinesAsGrid(int day, bool example)
         {
-            var lines = ReadLines(10, example);
+            var lines = ReadLines(day, example);
             return new Grid(lines);
         }
 
