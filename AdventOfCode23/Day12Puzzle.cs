@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.SymbolStore;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -10,6 +11,8 @@ namespace AdventOfCode23
 {
     internal class Day12Puzzle : PuzzleBase
     {
+        private static long _count = 0;
+        private static Dictionary<string, long> _cache = new Dictionary<string, long>();
         internal static void Do(bool example, bool isPartTwo)
         {
             var lines = ReadLines(12, example);
@@ -19,7 +22,7 @@ namespace AdventOfCode23
             Console.WriteLine(totalArrangements);
         }
 
-        internal static int ArrangementsInLine(string line, bool isPartTwo)
+        internal static long ArrangementsInLine(string line, bool isPartTwo)
         {
             var parts = line.Split(' ');
             var rawSymbols = parts[0];
@@ -39,15 +42,21 @@ namespace AdventOfCode23
                 .Select(int.Parse)
                 .ToArray();
 
+            _cache.Clear();
             var count = ArrangementsInLine(symbols, groupSizes, 0, groupSizes.Sum());
             Console.WriteLine(count + " " + line);
+            Console.WriteLine(_count);
             return count;
         }
 
         // We keep track of the sum of remaining groups, rather than repeatedly summing the lists
         // and the group we're trying to place, rather than repeatedly constructing shorter lists
-        internal static int ArrangementsInLine(string symbols, int[] groupSizes, int indexOfNextGroupToPlace, int groupSum)
+        internal static long ArrangementsInLine(string symbols, int[] groupSizes, int indexOfNextGroupToPlace, int groupSum)
         {
+            _count++;
+            if (_cache.ContainsKey(symbols + indexOfNextGroupToPlace))
+                return _cache[symbols + indexOfNextGroupToPlace];
+
             // We've finished placing groups - so we have a valid arrangement
             // provided that there are no remaining # that haven't been matched
             if (groupSum < symbols.ToCharArray().Count(x => x == '#'))
@@ -58,7 +67,7 @@ namespace AdventOfCode23
             // Does the first group match the head of the string?
             var firstSize = groupSizes[indexOfNextGroupToPlace];
             var matchesFirstChar = MatchesFirstChar(symbols, firstSize);
-            var arrangementsMatchingFirstChar = 0;
+            var arrangementsMatchingFirstChar = 0l;
             if (matchesFirstChar)
             {
                 var substringAfterMatch = 
@@ -72,7 +81,7 @@ namespace AdventOfCode23
                         groupSum - firstSize);
             }
 
-            var arrangementsNotMatchingFirstChar = 0;
+            var arrangementsNotMatchingFirstChar = 0l;
             if (symbols.Length > 0)
             {
                 // If symbols starts with '#' then no point continuing, as we'll always
@@ -84,6 +93,7 @@ namespace AdventOfCode23
                 }
             }
             
+            _cache.Add(symbols + indexOfNextGroupToPlace, arrangementsNotMatchingFirstChar + arrangementsMatchingFirstChar);
             return arrangementsMatchingFirstChar + arrangementsNotMatchingFirstChar;
         }
 

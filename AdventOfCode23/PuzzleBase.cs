@@ -47,6 +47,26 @@ namespace AdventOfCode23
             return new Grid(lines);
         }
 
+        protected static IEnumerable<Grid> ReadLinesAsGrids(int day, bool example)
+        {
+            var lines = ReadLines(day, example);
+            var gridLines = new List<string>();
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrEmpty(line))
+                {
+                    yield return new Grid(gridLines);
+                    gridLines.Clear();
+                }
+                else
+                {
+                    gridLines.Add(line);
+                }
+            }
+
+            yield return new Grid(gridLines);
+        }
+
         protected static bool IsDigit(char c) => c >= '0' && c <= '9';
 
         protected static int ToDigit(char c) => c - '0';

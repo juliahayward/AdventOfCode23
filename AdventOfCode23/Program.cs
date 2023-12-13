@@ -10,8 +10,7 @@ namespace AdventOfCode23
         {
             var start = DateTime.UtcNow;
 
-            // currently 0.26s for example, 21 cursor-flashes for first of real
-            Day12Puzzle.Do(true, true);
+            Day13Puzzle.Do(false);
 
             Console.WriteLine("Elapsed time: " + (DateTime.UtcNow - start).TotalSeconds);
 
