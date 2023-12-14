@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AdventOfCode23.PuzzleBase;
 
 namespace AdventOfCode23
 {
@@ -39,6 +40,18 @@ namespace AdventOfCode23
             public char[,] Cells { get; }
             public int Width { get; }
             public int Height { get; }
+
+            public void Write()
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    for (int x = 0; x < Width; x++)
+                    {
+                        Console.Write(Cells[x, y]);
+                    }
+                    Console.WriteLine();
+                }
+            }
         }
 
         protected static Grid ReadLinesAsGrid(int day, bool example)

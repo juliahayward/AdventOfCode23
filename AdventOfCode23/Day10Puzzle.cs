@@ -79,19 +79,7 @@ namespace AdventOfCode23
             }
             catch (Exception)
             {
-                WriteCells();
-            }
-        }
-
-        static void WriteCells()
-        {
-            for (int x = 0; x < _grid.Width; x++)
-            {
-                for (int y = 0; y < _grid.Height; y++)
-                {
-                    Console.Write(_grid.Cells[x, y]);
-                }
-                Console.WriteLine();
+                _grid.Write();
             }
         }
 
