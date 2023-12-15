@@ -78,6 +78,7 @@
     <Compile Include="Day12Puzzle.cs" />
     <Compile Include="Day13Puzzle.cs" />
     <Compile Include="Day14Puzzle.cs" />
+    <Compile Include="Day15Puzzle.cs" />
     <Compile Include="Day1Puzzle.cs" />
     <Compile Include="Day2Puzzle.cs" />
     <Compile Include="Day3Puzzle.cs" />
