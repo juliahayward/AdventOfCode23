@@ -10,7 +10,7 @@ namespace AdventOfCode23
         {
             var start = DateTime.UtcNow;
 
-            Day19Puzzle.Do(false);
+            Day17Puzzle.Do(false, true);
 
             Console.WriteLine("Elapsed time: " + (DateTime.UtcNow - start).TotalSeconds);
 
