@@ -85,6 +85,8 @@
     <Compile Include="Day19Puzzle.cs" />
     <Compile Include="Day1Puzzle.cs" />
     <Compile Include="Day20Puzzle.cs" />
+    <Compile Include="Day21Puzzle.cs" />
+    <Compile Include="Day22Puzzle.cs" />
     <Compile Include="Day2Puzzle.cs" />
     <Compile Include="Day3Puzzle.cs" />
     <Compile Include="Day4Puzzle.cs" />

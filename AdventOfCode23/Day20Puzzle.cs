@@ -81,11 +81,35 @@ namespace AdventOfCode23
             }
             Console.WriteLine($"Got first L after {i1} pushes");
 
-            // HOWEVER some conveniently placed writes suggest that we've got four adders
-            // here, with the four flip-flops next to "broadcaster" flipping every time,
-            // the next ones in the chain flipping on alternate pushes, and so on. I'm going to
-            // look down the chain, find "rx", and guess that it first flips on 2^n for some n.
+            /*
+At this stage it was obvious that we're not going to calculate an answer in a sensible time.
+So, I resorted to mapping out the modules, and it is most definitely NOT an accident:
 
+broadcast -> %sj -> %kj -> %fk -> %xh -> %zs -> %ct -> %rt -> %hq -> %bb -> %kf -> %ph -> hx -> &rb
+				 ,   rb                  rb            rb                    rb    rb    rb
+				 
+             %sr -> %vs -> %tq -> %jm -> kp -> vk -> tk -> sh -> zk > ps -> qz -> kh -> &ml
+			         ml     ml           ml                           ml    ml    ml
+					 
+			 tp ->  %lx -> ff -> df -> nv -> xm -> cq -> mq -> pr -> pf _> nt -> gs -> gp
+					gp     gp    gp                gp    gp          gp    gp    gp
+					
+			 %nk -> nn -> xf -> qr -> zt -> pb -> kq -> tl -> bn -> sv -> dx -> tz -> bt
+   			        bt    bt          bt    bt          bt          bt    bt    bt
+					
+			bt -> %vg -> lg ->
+			ml -> %nb -> lg -> %rx
+			rb -> %vc -> lg ->
+			gp -> %ls -> lg ->
+
+I confirmed my suspicion that the sequences SJ-KJ-FK-XH-ZS-CT-RT-HQ-BB-KF-PH-HX etc act like
+four counters here, with the four flip-flops next to "broadcaster" flipping every time,
+the next ones in the chain flipping on alternate pushes, and so on. RB fires when the SJ
+counter reaches 111100101001 = 3881, and confirmed its consequences are (i) to reset SJ etc
+back to 0 and (ii) flip VG. The other three do similar at 3851, 3943, 3931. Which are all 
+coprime. So the four inputs to LG all fire off together every 3881*3851*3943*3931 button
+presses = 231,657,829,136,023
+            */
         }
 
         private static void WriteRegisters(Dictionary<string, Module> modules)

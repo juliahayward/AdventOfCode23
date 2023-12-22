@@ -38,6 +38,24 @@ namespace AdventOfCode23
             }
 
             public char[,] Cells { get; }
+
+            public char GetChar(int x, int y)
+            {
+                if (x >= 0 && y >= 0 && x < Width && y < Height)
+                    return Cells[x, y];
+                return (char)0;
+            }
+
+            public int CountChar(char target)
+            {
+                int count = 0;
+                for (int i = 0; i < Width; i++)
+                for (int j = 0; j < Height; j++)
+                    if (Cells[i, j] == target)
+                        count++;
+                return count;
+            }
+
             public int Width { get; }
             public int Height { get; }
 
