@@ -56,6 +56,14 @@ namespace AdventOfCode23
                 return count;
             }
 
+            public void ReplaceChars(string oldChars, char newChar)
+            {
+                for (int i = 0; i < Width; i++)
+                for (int j = 0; j < Height; j++)
+                    if (oldChars.Contains(Cells[i, j]))
+                            Cells[i,j] = newChar;
+            }
+
             public int Width { get; }
             public int Height { get; }
 
