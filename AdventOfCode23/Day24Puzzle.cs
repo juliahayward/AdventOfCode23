@@ -76,7 +76,7 @@ namespace AdventOfCode23
             // and cancelling the XxV term between various instances).
 
             // Hang on! We have two stones that have the same pz and vz. So the rock must have the same
-            // if it is to intercept both. Sadly same is not true for x, y directions.
+            // values if it is to intercept both. Sadly same is not true for x, y directions.
             var zzz = hailstones.GroupBy(x => x.pz)
                 .Where(g => g.Count() > 1);
             var rockZ = zzz.First().First().pz;
@@ -86,7 +86,7 @@ namespace AdventOfCode23
             var h1 = hailstones.First(x => x.pz != rockZ);
             var h2 = hailstones.Last(x => x.pz != rockZ);
             // rockZ + t1 * rockVz = stoneZ + t1 * stoneVz
-            // keep as integers
+            // keep potential rational numbers as integer pairs
             var t1_top = rockZ - h1.pz;
             var t1_bottom = h1.vz - rockVz;
             var t2_top = rockZ - h2.pz;
@@ -101,13 +101,14 @@ namespace AdventOfCode23
              *
              * whence
              * (t2-t1) * rockX + t2 * stone1X - t1 * stone2X
+             *
+             * and similar for y. 
              */
             var rockX = (t2 * h1.px - t1 * h2.px + t1 * t2 * (h1.vx - h2.vx)) / (t2 - t1);
 
             var rockY = (t2 * h1.py - t1 * h2.py + t1 * t2 * (h1.vy - h2.vy)) / (t2 - t1);
 
             Console.WriteLine(rockX + rockY + rockZ);
-            // too high 1213193779181140
         }
     }
 
